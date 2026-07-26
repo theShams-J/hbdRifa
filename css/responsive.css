@@ -1,0 +1,90 @@
+/* ==========================================================================
+   MOBILE-FIRST BASE (default styles in style.css/animations.css already
+   target small screens — this file layers in fixes + larger breakpoints)
+   ========================================================================== */
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .welcome-card { padding: 32px 22px 26px; border-radius: 22px; }
+  .welcome-message { font-size: 14px; }
+  .cake { width: 62vw; }
+  .photo-frame { width: 68vw; }
+  .main-title { font-size: 22px; }
+}
+
+/* Short viewports (landscape phones, small heights) */
+@media (max-height: 620px) {
+  .cake-scene { gap: 16px; }
+  .cake { width: 46vw; max-width: 190px; }
+  .welcome-card { padding: 26px 24px 22px; }
+  .disco-rig { height: 44px; margin-bottom: -4px; }
+  .photo-frame { width: min(52vw, 220px); }
+  .main-header { margin-bottom: 4px; }
+}
+
+/* Tablet and up — keep the phone-shaped card centered with breathing room */
+@media (min-width: 640px) {
+  body { background: linear-gradient(160deg, #2A0944, #1A0B2E); }
+
+  #app {
+    height: min(92vh, 880px);
+    border-radius: 32px;
+    top: 50%;
+    position: relative;
+    margin-top: -46vh;
+  }
+}
+
+@media (min-width: 640px) and (max-height: 760px) {
+  #app { margin-top: -44vh; }
+}
+
+/* Desktop — slightly larger type/photo for comfortable viewing */
+@media (min-width: 900px) {
+  .welcome-title { font-size: 34px; }
+  .celebration-text .line { font-size: 72px; }
+  .photo-frame { width: 300px; }
+}
+
+/* Landscape orientation on phones — shrink vertical elements so nothing clips */
+@media (orientation: landscape) and (max-width: 900px) {
+  #app { max-width: 480px; }
+  .cake-scene { gap: 12px; padding: 12px; }
+  .blow-instruction { font-size: 18px; }
+  .cake { width: 34vw; max-width: 160px; }
+  .main-page { padding: 14px 20px 16px; }
+  .disco-rig { display: none; }
+  .photo-frame { width: min(38vh, 220px); }
+  .main-title { font-size: 20px; }
+  .main-title-name { font-size: 26px; }
+}
+
+/* Touch devices — make tap targets comfortably large */
+@media (hover: none) and (pointer: coarse) {
+  .continue-btn { padding: 15px 32px; }
+  .tap-fallback { display: inline-flex; }
+  .sound-toggle { width: 44px; height: 44px; }
+}
+
+/* Devices with a mouse — hover feedback on interactive elements */
+@media (hover: hover) and (pointer: fine) {
+  .continue-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(255, 46, 147, 0.42); }
+  .continue-btn { transition: transform 0.25s var(--ease-soft), box-shadow 0.25s var(--ease-soft); }
+  .tap-fallback:hover { background: rgba(124, 58, 237, 0.14); }
+  .sound-toggle:hover { background: rgba(255,255,255,0.2); }
+  .sound-toggle { transition: background 0.2s var(--ease-soft); }
+}
+
+/* Safe-area support for notched phones */
+@supports (padding: max(0px)) {
+  .main-page {
+    padding-top: max(22px, env(safe-area-inset-top));
+    padding-bottom: max(26px, env(safe-area-inset-bottom));
+  }
+  .cake-scene {
+    padding-top: max(24px, env(safe-area-inset-top));
+  }
+  .sound-toggle {
+    top: max(18px, env(safe-area-inset-top));
+  }
+}

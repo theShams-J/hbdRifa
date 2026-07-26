@@ -1,0 +1,295 @@
+/* ==========================================================================
+   SCREEN 1 — welcome card in / out
+   ========================================================================== */
+.welcome-overlay { animation: none; }
+
+.welcome-card {
+  animation: cardIn 0.7s var(--ease-smooth) both;
+}
+
+@keyframes cardIn {
+  0%   { opacity: 0; transform: scale(0.72); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.welcome-overlay.is-leaving .welcome-card {
+  animation: cardOut 0.5s var(--ease-soft) both;
+}
+.welcome-overlay.is-leaving .blur-backdrop {
+  animation: backdropOut 0.6s var(--ease-soft) both;
+}
+@keyframes cardOut {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.85) translateY(10px); }
+}
+@keyframes backdropOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+.welcome-overlay.is-hidden { display: none; }
+
+/* subtle ambient float on decor */
+.bg-balloon { animation: balloonFloat 6s ease-in-out infinite; }
+.cake-bg-decor .b2 { animation-delay: -2s; }
+.cake-bg-decor .b3 { animation-delay: -4s; }
+@keyframes balloonFloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-14px) rotate(3deg); }
+}
+
+.bg-star { animation: starTwinkle 2.4s ease-in-out infinite; }
+.s2 { animation-delay: -0.8s; }
+.s3 { animation-delay: -1.4s; }
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50%      { opacity: 0.9; transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   SCREEN 2 — candle flame + cake
+   ========================================================================== */
+.flame {
+  animation: flameFlicker 1.1s ease-in-out infinite;
+}
+@keyframes flameFlicker {
+  0%, 100% { transform: translateX(-50%) scaleY(1) rotate(-1deg); }
+  25%      { transform: translateX(-50%) scaleY(1.05) rotate(2deg); }
+  50%      { transform: translateX(-50%) scaleY(0.95) rotate(-2deg); }
+  75%      { transform: translateX(-50%) scaleY(1.02) rotate(1deg); }
+}
+
+.cake-scene { animation: sceneIn 0.7s var(--ease-smooth) both 0.15s; }
+@keyframes sceneIn {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Blowing state: flame bends & dies out */
+.flame-wrap.is-blowing .flame {
+  animation: flameBend 0.5s var(--ease-soft) forwards;
+}
+@keyframes flameBend {
+  0%   { transform: translateX(-50%) rotate(0deg) scaleY(1); opacity: 1; }
+  40%  { transform: translateX(-50%) rotate(70deg) scaleY(0.7); opacity: 0.8; }
+  100% { transform: translateX(-50%) rotate(95deg) scaleY(0.2); opacity: 0; }
+}
+.flame-wrap.is-blowing .flame-glow {
+  animation: glowFade 0.5s ease-out forwards;
+}
+@keyframes glowFade {
+  to { opacity: 0; transform: translateX(-50%) scale(0.4); }
+}
+
+/* Smoke rising */
+.smoke-wrap.is-smoking .smoke {
+  animation: smokeRise 1.4s ease-out forwards;
+}
+.smoke-wrap.is-smoking .smoke:nth-child(1) { animation-delay: 0s; }
+.smoke-wrap.is-smoking .smoke:nth-child(2) { animation-delay: 0.15s; }
+.smoke-wrap.is-smoking .smoke:nth-child(3) { animation-delay: 0.3s; }
+@keyframes smokeRise {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(0.5); background-color: rgba(180,180,190,0.5); }
+  30%  { opacity: 0.6; background-color: rgba(190,190,200,0.55); }
+  100% { opacity: 0; transform: translate(-50%, -60px) scale(1.6) translateX(6px); background-color: rgba(200,200,210,0.2); }
+}
+
+/* Cake bounce on blow */
+.cake.is-bouncing {
+  animation: cakeBounce 0.6s var(--ease-soft);
+}
+@keyframes cakeBounce {
+  0%   { transform: scale(1) translateY(0); }
+  30%  { transform: scale(1.04, 0.94) translateY(6px); }
+  55%  { transform: scale(0.97, 1.05) translateY(-6px); }
+  75%  { transform: scale(1.02, 0.98) translateY(2px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Whole cake screen exit into celebration */
+#screen-cake.is-leaving {
+  animation: cakeSceneOut 0.6s var(--ease-soft) forwards;
+}
+@keyframes cakeSceneOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ==========================================================================
+   SCREEN 3 — celebration overlay
+   ========================================================================== */
+.celebration-overlay.is-active {
+  animation: none;
+}
+.celebration-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+.celebration-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.celebration-text-wrap { animation: none; }
+.celebration-overlay.is-active .line-happy {
+  animation: popIn 0.55s var(--ease-smooth) both 0.1s;
+}
+.celebration-overlay.is-active .line-birthday {
+  animation: popIn 0.55s var(--ease-smooth) both 0.28s;
+}
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.5) translateY(14px); }
+  70%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.celebration-overlay.is-leaving {
+  animation: fadeOutOverlay 0.7s var(--ease-soft) forwards;
+}
+@keyframes fadeOutOverlay {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.sparkle { animation: sparkleTwinkle 1.6s ease-in-out infinite; }
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  50%      { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   SCREEN 4 — main page reveal
+   ========================================================================== */
+.main-page {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-soft);
+}
+.main-page.is-active { opacity: 1; }
+
+.main-header { animation: dropIn 0.7s var(--ease-smooth) both 0.2s; }
+@keyframes dropIn {
+  0%   { opacity: 0; transform: translateY(-16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Frame dance — faster rotate + bounce, like it's grooving to the beat
+   (tempo matched to the uploaded track's ~1.6s melodic phrase) */
+.photo-frame {
+  transform-origin: top center;
+  animation: frameDance 1.6s ease-in-out infinite;
+}
+@keyframes frameDance {
+  0%   { transform: rotate(0deg)   translateY(0); }
+  20%  { transform: rotate(-7deg)  translateY(-5px); }
+  40%  { transform: rotate(0deg)   translateY(1px); }
+  60%  { transform: rotate(7deg)   translateY(-5px); }
+  80%  { transform: rotate(0deg)   translateY(1px); }
+  100% { transform: rotate(0deg)   translateY(0); }
+}
+
+/* Disco ball rig sways in the same rhythm as the frame beneath it */
+.disco-rig { animation: frameDance 1.6s ease-in-out infinite; }
+
+/* Ball itself spins independently and continuously */
+.disco-ball { animation: discoSpin 2.6s linear infinite; }
+@keyframes discoSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Light beams sweep back and forth like they're bouncing off the ball */
+.disco-beam { animation: beamSweep 1.6s ease-in-out infinite; }
+.beam-a { animation-delay: 0s; }
+.beam-b { animation-delay: -0.55s; }
+.beam-c { animation-delay: -1.1s; }
+@keyframes beamSweep {
+  0%, 100% { transform: translateX(-50%) rotate(-16deg); opacity: 0.35; }
+  50%      { transform: translateX(-50%) rotate(16deg);  opacity: 0.6; }
+}
+
+/* Dance-floor spotlights drift and pulse */
+.floor-spot { animation: spotDrift 3.2s ease-in-out infinite; }
+.spot2 { animation-duration: 3.8s; animation-direction: reverse; }
+.spot3 { animation-duration: 3.4s; }
+.spot4 { animation-duration: 4s; animation-direction: reverse; }
+@keyframes spotDrift {
+  0%, 100% { transform: translate(0, 0) scale(1);      opacity: 0.32; }
+  50%      { transform: translate(14px, -12px) scale(1.18); opacity: 0.5; }
+}
+
+/* Mirror-ball glints twinkle quickly */
+.glint { animation: glintFlicker 0.9s ease-in-out infinite; }
+.g2 { animation-delay: -0.2s; }
+.g3 { animation-delay: -0.4s; }
+.g4 { animation-delay: -0.6s; }
+.g5 { animation-delay: -0.15s; }
+.g6 { animation-delay: -0.5s; }
+@keyframes glintFlicker {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+
+/* Floating balloons — slow independent bob, staggered */
+.drift-balloon { animation: balloonBob 5.5s ease-in-out infinite; }
+.db2 { animation-duration: 6.4s; animation-delay: -2s; }
+.db3 { animation-duration: 4.8s; animation-delay: -3.4s; }
+@keyframes balloonBob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-16px) rotate(3deg); }
+}
+
+/* Ambient confetti — drifts slowly down the screen and loops, like a
+   gentle continuous sprinkle rather than the Screen 3 confetti burst */
+.ambient-confetti { animation: confettiDrift linear infinite; top: -6%; }
+.cf1  { animation-duration: 9s;  animation-delay: 0s; }
+.cf2  { animation-duration: 11s; animation-delay: -2s; }
+.cf3  { animation-duration: 8.5s; animation-delay: -5s; }
+.cf4  { animation-duration: 12s; animation-delay: -1s; }
+.cf5  { animation-duration: 10s; animation-delay: -7s; }
+.cf6  { animation-duration: 9.5s; animation-delay: -3.5s; }
+.cf7  { animation-duration: 11.5s; animation-delay: -6s; }
+.cf8  { animation-duration: 8.8s; animation-delay: -4s; }
+.cf9  { animation-duration: 10.5s; animation-delay: -8s; }
+.cf10 { animation-duration: 9.2s; animation-delay: -1.5s; }
+@keyframes confettiDrift {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg);      opacity: 0; }
+  8%   { opacity: 0.7; }
+  50%  { transform: translateY(48vh) translateX(12px) rotate(180deg); }
+  92%  { opacity: 0.6; }
+  100% { transform: translateY(100vh) translateX(-8px) rotate(360deg); opacity: 0; }
+}
+
+.frame-stage { animation: stageIn 0.8s var(--ease-smooth) both 0.35s; }
+@keyframes stageIn {
+  0%   { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.equalizer-wrap { animation: dropIn 0.7s var(--ease-smooth) both 0.5s; }
+
+.equalizer-wrap.is-playing .eq-bar {
+  animation: eqBounce 0.7s ease-in-out infinite;
+}
+.eq-bar:nth-child(1) { animation-delay: -0.63s; }
+.eq-bar:nth-child(2) { animation-delay: -0.49s; }
+.eq-bar:nth-child(3) { animation-delay: -0.35s; }
+.eq-bar:nth-child(4) { animation-delay: -0.21s; }
+.eq-bar:nth-child(5) { animation-delay: -0.42s; }
+.eq-bar:nth-child(6) { animation-delay: -0.14s; }
+.eq-bar:nth-child(7) { animation-delay: -0.56s; }
+@keyframes eqBounce {
+  0%, 100% { height: 4px; }
+  50%      { height: 22px; }
+}
+.eq-bar { height: 4px; } /* rest state when not playing */
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

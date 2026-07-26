@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy Birthday, Rifa! 🎉</title>
+
+  <!-- Fonts: Fredoka (playful display) + Poppins (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       APP ROOT — all four screens live here, one visible at a time
+       (Screen 1 overlays Screen 2 at launch; Screen 3 overlays
+       Screen 4 once it starts; JS drives every transition)
+  ============================================================= -->
+  <div id="app">
+
+    <!-- ============ SCREEN 2 — BIRTHDAY CAKE (loaded first, sits underneath) ============ -->
+    <section id="screen-cake" class="screen is-blurred" aria-hidden="true">
+      <div class="cake-bg-decor" aria-hidden="true">
+        <span class="bg-balloon b1"></span>
+        <span class="bg-balloon b2"></span>
+        <span class="bg-balloon b3"></span>
+        <span class="bg-star s1">✦</span>
+        <span class="bg-star s2">✦</span>
+        <span class="bg-star s3">✧</span>
+      </div>
+
+      <div class="cake-scene" id="cakeScene">
+        <p class="blow-instruction" id="blowInstruction">Blow the candle <span aria-hidden="true">🕯️</span></p>
+
+        <div class="cake-wrap" id="cakeWrap">
+          <!-- Candle + flame -->
+          <div class="candle" id="candle">
+            <div class="flame-wrap" id="flameWrap">
+              <div class="flame" id="flame"></div>
+              <div class="flame-glow"></div>
+            </div>
+            <div class="candle-stick"></div>
+          </div>
+
+          <!-- Cake body -->
+          <div class="cake" id="cakeBody">
+            <div class="cake-top">
+              <span class="sprinkle sp1"></span>
+              <span class="sprinkle sp2"></span>
+              <span class="sprinkle sp3"></span>
+              <span class="sprinkle sp4"></span>
+              <span class="sprinkle sp5"></span>
+            </div>
+            <div class="cake-layer layer-1"></div>
+            <div class="cake-layer layer-2"></div>
+            <div class="cake-layer layer-3"></div>
+            <div class="cake-plate"></div>
+          </div>
+
+          <!-- Smoke puffs (hidden until blown) -->
+          <div class="smoke-wrap" id="smokeWrap">
+            <span class="smoke"></span>
+            <span class="smoke"></span>
+            <span class="smoke"></span>
+          </div>
+        </div>
+
+        <button type="button" id="tapFallbackBtn" class="tap-fallback">
+          Can't blow? <span class="tap-fallback-strong">Tap the candle instead</span>
+        </button>
+        <p class="mic-hint" id="micHint">Allow microphone access, then blow 💨</p>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 1 — WELCOME LETTER POPUP ============ -->
+    <section id="screen-welcome" class="screen welcome-overlay">
+      <div class="blur-backdrop" id="blurBackdrop"></div>
+      <div class="welcome-card" id="welcomeCard" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+        <div class="welcome-card-glow" aria-hidden="true"></div>
+        <p class="welcome-eyebrow">A little something for</p>
+        <h1 id="welcomeTitle" class="welcome-title">The Birthday Girl ❤️</h1>
+        <p class="welcome-message">
+         Hey, Little One! 🌸
+         <br>
+
+Before we start the celebration, I just wanted to say... <br>
+
+Today is all about you. I hope this new year of your life brings you endless happiness, good health, beautiful memories, and countless reasons to smile.
+
+Thank you for being the sweet, cheerful, and wonderful person you are. Never stop being yourself, because that's what makes you so special.
+
+Now, I have a little surprise waiting for you...
+
+Click the button below and let's celebrate your special day together! 🎉✨
+        </p>
+        <button type="button" id="continueBtn" class="continue-btn">
+          Continue <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 3 — CELEBRATION OVERLAY ============ -->
+    <section id="screen-celebration" class="screen celebration-overlay" aria-hidden="true">
+      <canvas id="confettiCanvas"></canvas>
+      <div class="celebration-text-wrap">
+        <h2 class="celebration-text">
+          <span class="line line-happy">HAPPY</span>
+          <span class="line line-birthday">BIRTHDAY</span>
+          <span class="line line-name">RIFA</span>
+        </h2>
+        <div class="sparkle-field" id="sparkleField" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN 4 — MAIN CELEBRATION PAGE ============ -->
+    <section id="screen-main" class="screen main-page" aria-hidden="true">
+      <div class="main-bg-decor" aria-hidden="true">
+        <span class="floor-spot spot1"></span>
+        <span class="floor-spot spot2"></span>
+        <span class="floor-spot spot3"></span>
+        <span class="floor-spot spot4"></span>
+        <span class="glint g1"></span>
+        <span class="glint g2"></span>
+        <span class="glint g3"></span>
+        <span class="glint g4"></span>
+        <span class="glint g5"></span>
+        <span class="glint g6"></span>
+        <span class="drift-balloon db1"></span>
+        <span class="drift-balloon db2"></span>
+        <span class="drift-balloon db3"></span>
+        <span class="ambient-confetti cf1"></span>
+        <span class="ambient-confetti cf2"></span>
+        <span class="ambient-confetti cf3"></span>
+        <span class="ambient-confetti cf4"></span>
+        <span class="ambient-confetti cf5"></span>
+        <span class="ambient-confetti cf6"></span>
+        <span class="ambient-confetti cf7"></span>
+        <span class="ambient-confetti cf8"></span>
+        <span class="ambient-confetti cf9"></span>
+        <span class="ambient-confetti cf10"></span>
+      </div>
+
+      <header class="main-header">
+        <h2 class="main-title">Happy Birthday<span class="main-title-name">Rifa</span></h2>
+      </header>
+
+      <main class="frame-stage">
+        <div class="disco-rig" id="discoRig" aria-hidden="true">
+          <div class="disco-cord"></div>
+          <div class="disco-ball">
+            <span class="ball-highlight"></span>
+          </div>
+          <span class="disco-beam beam-a"></span>
+          <span class="disco-beam beam-b"></span>
+          <span class="disco-beam beam-c"></span>
+        </div>
+
+        <div class="photo-frame" id="photoFrame">
+          <div class="photo-frame-inner">
+            <img id="carouselImg1" class="carousel-img is-active" src="assets/img1.jpg" alt="Birthday memory photo" />
+            <img id="carouselImg2" class="carousel-img" src="assets/img2.jpg" alt="Birthday memory photo" />
+          </div>
+          <div class="photo-frame-clip" aria-hidden="true"></div>
+        </div>
+      </main>
+
+      <footer class="equalizer-wrap" id="equalizerWrap" aria-hidden="true">
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+      </footer>
+
+      <button type="button" id="soundToggle" class="sound-toggle" aria-label="Toggle music">🔊</button>
+    </section>
+
+  </div>
+
+  <!-- Birthday music — starts only on Screen 4, controlled via JS -->
+  <audio id="bgMusic" src="assets/hbd.mp3" loop preload="auto"></audio>
+
+  <script src="js/microphone.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

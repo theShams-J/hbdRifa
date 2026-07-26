@@ -1,0 +1,683 @@
+/* ==========================================================================
+   DESIGN TOKENS — Vibrant Party palette
+   ========================================================================== */
+:root {
+  --pink:        #FF2E93;
+  --pink-soft:   #FF6FB4;
+  --purple:      #7C3AED;
+  --purple-soft: #A78BFA;
+  --yellow:      #FFC800;
+  --orange:      #FF7A1A;
+  --teal:        #00E5C7;
+  --cream:       #FFF6E9;
+  --white:       #FFFFFF;
+  --deep:        #1A0B2E;
+  --deep-2:      #2A0944;
+  --ink:         #2B1042;
+
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-body:    'Poppins', system-ui, sans-serif;
+
+  --shadow-soft: 0 20px 60px rgba(43, 16, 66, 0.25);
+  --shadow-card: 0 24px 70px rgba(124, 58, 237, 0.35);
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   RESET
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* app is a single-viewport experience, no page scroll */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--deep);
+  -webkit-font-smoothing: antialiased;
+  position: fixed;
+  inset: 0;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ==========================================================================
+   APP SHELL
+   ========================================================================== */
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 560px;   /* keeps the experience phone-shaped on wide screens */
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--cream);
+  box-shadow: var(--shadow-soft);
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   SCREEN 2 — CAKE
+   ========================================================================== */
+#screen-cake {
+  background: linear-gradient(160deg, #FFF6E9 0%, #FFE3F0 45%, #F3E6FF 100%);
+  filter: blur(0px);
+  transition: filter 0.6s var(--ease-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#screen-cake.is-blurred {
+  filter: blur(14px) brightness(0.85);
+}
+
+.cake-bg-decor { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+.bg-balloon {
+  position: absolute;
+  width: 46px;
+  height: 58px;
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  opacity: 0.55;
+}
+.cake-bg-decor .b1 { left: 8%;  top: 14%; background: var(--pink-soft); }
+.cake-bg-decor .b2 { right: 10%; top: 22%; background: var(--teal); }
+.cake-bg-decor .b3 { left: 14%; bottom: 16%; background: var(--yellow); }
+
+.bg-star {
+  position: absolute;
+  color: var(--purple-soft);
+  opacity: 0.5;
+  font-size: 22px;
+}
+.cake-bg-decor .s1 { right: 16%; top: 12%; }
+.cake-bg-decor .s2 { left: 20%;  top: 30%; font-size: 16px; }
+.cake-bg-decor .s3 { right: 22%; bottom: 22%; font-size: 18px; }
+
+.cake-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 24px;
+  text-align: center;
+  z-index: 1;
+}
+
+.blow-instruction {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(20px, 5.5vw, 28px);
+  color: var(--ink);
+  margin: 0;
+}
+
+.cake-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Candle + flame */
+.candle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.candle-stick {
+  width: 12px;
+  height: 46px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(180deg, var(--pink) 0 8px, var(--white) 8px 16px);
+}
+
+.flame-wrap {
+  position: relative;
+  width: 20px;
+  height: 34px;
+  margin-bottom: -4px;
+  transform-origin: bottom center;
+}
+
+.flame {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 28px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: linear-gradient(180deg, #FFE58A 0%, var(--yellow) 45%, var(--orange) 85%);
+  transform-origin: bottom center;
+}
+
+.flame-glow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle, rgba(255, 200, 0, 0.45) 0%, rgba(255, 200, 0, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Cake body */
+.cake {
+  position: relative;
+  width: min(66vw, 260px);
+}
+
+.cake-top {
+  position: relative;
+  height: 26px;
+  border-radius: 50% / 100%;
+  background: var(--white);
+  z-index: 2;
+}
+.sprinkle {
+  position: absolute;
+  width: 8px;
+  height: 3px;
+  border-radius: 2px;
+  top: 8px;
+}
+.sp1 { left: 18%; background: var(--pink); transform: rotate(20deg); }
+.sp2 { left: 35%; background: var(--teal); transform: rotate(-15deg); top: 5px; }
+.sp3 { left: 50%; background: var(--purple); transform: rotate(45deg); }
+.sp4 { left: 65%; background: var(--orange); transform: rotate(-30deg); top: 6px; }
+.sp5 { left: 80%; background: var(--pink); transform: rotate(10deg); }
+
+.cake-layer {
+  width: 100%;
+  border-radius: 8px;
+}
+.layer-1 { height: 34px; background: linear-gradient(180deg, var(--pink-soft), var(--pink)); margin-top: -4px; }
+.layer-2 { width: 92%; height: 30px; margin: 0 auto; background: linear-gradient(180deg, var(--purple-soft), var(--purple)); border-radius: 6px; }
+.layer-3 { width: 84%; height: 28px; margin: 0 auto; background: linear-gradient(180deg, #FFE58A, var(--yellow)); border-radius: 6px; }
+
+.cake-plate {
+  width: 110%;
+  margin-left: -5%;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--white), #EFE6FF);
+  box-shadow: 0 10px 24px rgba(43, 16, 66, 0.18);
+}
+
+/* Smoke (revealed on blow) */
+.smoke-wrap {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 60px;
+  z-index: 4;
+  pointer-events: none;
+}
+.smoke {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(180, 180, 190, 0);
+  opacity: 0;
+}
+
+.tap-fallback {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: var(--purple);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.08);
+}
+.tap-fallback-strong { font-weight: 700; color: var(--pink); text-decoration: underline; text-underline-offset: 3px; }
+
+.mic-hint {
+  font-size: 13px;
+  color: #7A6A8F;
+  margin: 0;
+  min-height: 18px;
+}
+
+/* ==========================================================================
+   SCREEN 1 — WELCOME LETTER POPUP
+   ========================================================================== */
+.welcome-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10;
+}
+
+.blur-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 11, 46, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.welcome-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--white);
+  border-radius: 28px;
+  padding: 40px 30px 34px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.welcome-card-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 0, 0.35), transparent 70%);
+  z-index: -1;
+}
+
+.welcome-eyebrow {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-weight: 600;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 7vw, 32px);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  background: linear-gradient(100deg, var(--pink) 0%, var(--purple) 60%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.welcome-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5B4B70;
+  margin: 0 0 28px;
+}
+
+.continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  background: linear-gradient(100deg, var(--pink), var(--purple));
+  box-shadow: 0 10px 24px rgba(255, 46, 147, 0.35);
+}
+
+.btn-arrow { display: inline-block; }
+
+/* ==========================================================================
+   SCREEN 3 — CELEBRATION OVERLAY
+   ========================================================================== */
+.celebration-overlay {
+  background: radial-gradient(120% 100% at 50% 0%, var(--deep-2) 0%, var(--deep) 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 20;
+}
+
+#confettiCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.celebration-text-wrap {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+.celebration-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.celebration-text .line {
+  display: block;
+  font-size: clamp(40px, 13vw, 68px);
+  letter-spacing: 0.02em;
+}
+
+.line-happy {
+  color: var(--yellow);
+  text-shadow: 0 0 24px rgba(255, 200, 0, 0.6), 0 0 60px rgba(255, 200, 0, 0.35);
+}
+
+.line-birthday {
+  background: linear-gradient(100deg, var(--pink) 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(255, 46, 147, 0.45));
+}
+.line-name {
+  background: linear-gradient(100deg, var(--pink) 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: rgba(245, 13, 13, 0.45);
+  filter: drop-shadow(0 0 26px rgba(245, 13, 13, 0.45));
+}
+s
+.sparkle-field { position: absolute; inset: -40px; pointer-events: none; }
+.sparkle-field .sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255,255,255,0.8);
+}
+
+/* ==========================================================================
+   SCREEN 4 — MAIN CELEBRATION PAGE
+   ========================================================================== */
+.main-page {
+  background: radial-gradient(140% 100% at 50% -10%, #3A1568 0%, var(--deep) 55%, #14081F 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 20px 26px;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.main-bg-decor { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+
+/* Dance-floor spotlights — soft roaming color blobs, disco-style */
+.floor-spot {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  filter: blur(32px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+.spot1 { left: -30px;  bottom: -30px; background: var(--pink); }
+.spot2 { right: -40px; bottom: 8%;    background: var(--teal); }
+.spot3 { left: 18%;    top: -40px;    background: var(--yellow); }
+.spot4 { right: 12%;   top: -20px;    background: var(--purple-soft); }
+
+/* Glints — tiny mirror-ball reflection sparkles scattered on the floor */
+.glint {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.85);
+}
+.g1 { left: 14%; top: 20%; }
+.g2 { right: 16%; top: 14%; }
+.g3 { left: 28%; bottom: 26%; }
+.g4 { right: 24%; bottom: 34%; }
+.g5 { left: 48%; top: 10%; }
+.g6 { right: 40%; bottom: 12%; }
+
+/* Floating balloons — party fill for the quieter corners of the screen */
+.drift-balloon {
+  position: absolute;
+  width: 34px;
+  height: 42px;
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  opacity: 0.65;
+}
+.drift-balloon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.db1 { left: 7%;  top: 10%;  background: var(--pink); }
+.db2 { right: 6%; bottom: 16%; width: 28px; height: 34px; background: var(--teal); }
+.db3 { left: 10%; bottom: 8%; width: 24px; height: 30px; background: var(--yellow); }
+
+/* Ambient confetti — small shapes drifting slowly through the scene */
+.ambient-confetti {
+  position: absolute;
+  opacity: 0.7;
+}
+.ambient-confetti.is-rect { border-radius: 2px; }
+.ambient-confetti.is-circle { border-radius: 50%; }
+
+.cf1  { left: 12%; width: 7px;  height: 7px;  background: var(--yellow); border-radius: 50%; }
+.cf2  { left: 82%; width: 8px;  height: 5px;  background: var(--pink); border-radius: 2px; }
+.cf3  { left: 24%; width: 6px;  height: 6px;  background: var(--teal); border-radius: 50%; }
+.cf4  { left: 68%; width: 8px;  height: 8px;  background: var(--purple-soft); border-radius: 50%; }
+.cf5  { left: 45%; width: 7px;  height: 5px;  background: var(--orange); border-radius: 2px; }
+.cf6  { left: 90%; width: 6px;  height: 6px;  background: var(--yellow); border-radius: 50%; }
+.cf7  { left: 5%;  width: 8px;  height: 5px;  background: var(--teal); border-radius: 2px; }
+.cf8  { left: 58%; width: 6px;  height: 6px;  background: var(--pink); border-radius: 50%; }
+.cf9  { left: 34%; width: 7px;  height: 5px;  background: var(--purple-soft); border-radius: 2px; }
+.cf10 { left: 76%; width: 6px;  height: 6px;  background: var(--orange); border-radius: 50%; }
+
+/* Disco ball rig — hangs above the photo frame, in normal flow so it
+   always sits correctly regardless of frame-stage height */
+.disco-rig {
+  position: relative;
+  width: 120px;
+  height: 58px;
+  margin-bottom: -6px;
+  transform-origin: top center;
+  z-index: 1;
+}
+
+.disco-cord {
+  width: 2px;
+  height: 34px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.disco-ball {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 0deg, #E7EAF0 0deg 9deg, #9AA0B4 9deg 18deg);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.45),
+    inset -5px -5px 8px rgba(0, 0, 0, 0.35),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.55);
+}
+
+.ball-highlight {
+  position: absolute;
+  top: 15%;
+  left: 22%;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
+}
+
+/* Light beams sweeping from the disco ball, colour-matched to the palette */
+.disco-beam {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  width: 120px;
+  height: 200px;
+  transform-origin: top center;
+  clip-path: polygon(50% 0%, 22% 100%, 78% 100%);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+.beam-a { background: linear-gradient(180deg, rgba(255, 46, 147, 0.45), transparent 72%); }
+.beam-b { background: linear-gradient(180deg, rgba(0, 229, 199, 0.4), transparent 72%); }
+.beam-c { background: linear-gradient(180deg, rgba(255, 200, 0, 0.4), transparent 72%); }
+
+.main-header { position: relative; z-index: 1; text-align: center; }
+
+.main-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 7vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.main-title-name {
+  font-weight: 700;
+  font-size: clamp(30px, 9vw, 40px);
+  background: linear-gradient(100deg, var(--yellow), var(--pink) 55%, var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.frame-stage {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.photo-frame {
+  position: relative;
+  width: min(72vw, 280px);
+  aspect-ratio: 3 / 4;
+  padding: 14px 14px 34px;
+  background: linear-gradient(160deg, #FFFDF8, #FFF1D6);
+  border-radius: 14px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.45), 0 0 0 6px rgba(255,255,255,0.06);
+}
+
+.photo-frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #1A0B2E;
+}
+
+.carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+}
+.carousel-img.is-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 1s var(--ease-smooth), transform 2.5s var(--ease-smooth);
+}
+
+.photo-frame-clip {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 14px;
+  background: var(--yellow);
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.equalizer-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 24px;
+}
+.eq-bar {
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--teal), var(--pink));
+}
+
+.sound-toggle {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
