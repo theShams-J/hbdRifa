@@ -8,8 +8,8 @@
  * -------------------------------------------------------------------------- */
 
 window.PhotoCarousel = (function () {
-  const IMAGE_COUNT = 6;
-  const INTERVAL_MS = 2500;
+  const IMAGE_COUNT = 15;
+  const INTERVAL_MS = 1200;
   const ASSET_PATH = 'assets/img';
 
   let imgA, imgB;
