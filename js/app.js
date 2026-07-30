@@ -303,19 +303,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
-// ----
-  soundToggle.addEventListener('click', () => {
-    musicMuted = !musicMuted;
-    bgMusic.muted = musicMuted;
-    soundToggle.textContent = musicMuted ? '🔇' : '🔊';
-    equalizerWrap.classList.toggle('is-playing', !musicMuted);
-  });
-
-});                              // <- this closes the DOMContentLoaded listener
-
-let pullStartY = null;          // <- your new code starts here, after that closing });
-const PULL_REFRESH_THRESHOLD = 90;
+/* ------------------------------------------------------------------
+ * Pull-to-refresh (custom) — since page scrolling is locked, the
+ * browser's native pull-to-refresh can't trigger, so we detect the
+ * same downward-drag gesture manually and reload the page, which
+ * naturally restarts the experience back at Screen 1.
+ * ------------------------------------------------------------------ */
+let pullStartY = null;
+const PULL_REFRESH_THRESHOLD = 90; // px of downward drag before triggering reload
 
 document.addEventListener('touchstart', (e) => {
   if (window.scrollY === 0) {
