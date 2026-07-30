@@ -607,7 +607,7 @@ s
 
 .photo-frame {
   position: relative;
-  width: min(72vw, 280px);
+  width: min(85vw, 340px);
   aspect-ratio: 3 / 4;
   padding: 14px 14px 34px;
   background: linear-gradient(160deg, #FFFDF8, #FFF1D6);
