@@ -302,3 +302,36 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+
+// ----
+  soundToggle.addEventListener('click', () => {
+    musicMuted = !musicMuted;
+    bgMusic.muted = musicMuted;
+    soundToggle.textContent = musicMuted ? '🔇' : '🔊';
+    equalizerWrap.classList.toggle('is-playing', !musicMuted);
+  });
+
+});                              // <- this closes the DOMContentLoaded listener
+
+let pullStartY = null;          // <- your new code starts here, after that closing });
+const PULL_REFRESH_THRESHOLD = 90;
+
+document.addEventListener('touchstart', (e) => {
+  if (window.scrollY === 0) {
+    pullStartY = e.touches[0].clientY;
+  }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+  if (pullStartY === null) return;
+  const deltaY = e.touches[0].clientY - pullStartY;
+  if (deltaY > PULL_REFRESH_THRESHOLD) {
+    pullStartY = null;
+    location.reload();
+  }
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
+  pullStartY = null;
+}, { passive: true });
